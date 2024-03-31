@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Assignment_04_Accounts_Group_1
+{
+    public class AccountException : Exception
+    {
+        public AccountException(ExceptionType reason) : base(reason.ToString())
+        { 
+            
+        }
+    }
+}
