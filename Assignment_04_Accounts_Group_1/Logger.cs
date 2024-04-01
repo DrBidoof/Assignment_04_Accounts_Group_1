@@ -8,19 +8,19 @@ namespace Assignment_04_Accounts_Group_1
 {
     public static class Logger
     {
-        private static List<string> loginEvents = new List<string>();
-        private static List<string> transactionEvents = new List<string>();
+        private static readonly List<string> loginEvents = new List<string>();
+        private static readonly List<string> transactionEvents = new List<string>();
 
-        public static EventHandler<EventArgs> LoginHandler = (sender, args) =>
+        public static void LoginHandler(object sender, EventArgs args)
         {
             if (args is LoginEventArgs loginArgs)
             {
                 string logMessage = $"{loginArgs.PersonName} - Success: {loginArgs.Success} - Time: {Utils.Now}";
                 loginEvents.Add(logMessage);
             }
-        };
+        }
 
-        public static EventHandler<EventArgs> TransactionHandler = (sender, args) =>
+        public static void TransactionHandler(object sender, EventArgs args)
         {
             if (args is TransactionEventArgs transactionArgs)
             {
@@ -28,7 +28,7 @@ namespace Assignment_04_Accounts_Group_1
                 string logMessage = $"{transactionArgs.PersonName} - Amount: {Math.Abs(transactionArgs.Amount)} - Operation: {operation} - Success: {transactionArgs.Success} - Time: {Utils.Now}";
                 transactionEvents.Add(logMessage);
             }
-        };
+        }
 
         public static void ShowLoginEvents()
         {
@@ -49,5 +49,5 @@ namespace Assignment_04_Accounts_Group_1
                 Console.WriteLine($"{i + 1}. {transactionEvents[i]}");
             }
         }
-    } 
+    }
 }
