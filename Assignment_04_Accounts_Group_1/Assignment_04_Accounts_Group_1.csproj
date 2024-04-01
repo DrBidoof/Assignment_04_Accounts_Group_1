@@ -46,17 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs" />
     <Compile Include="AccountException _Exception.cs" />
+    <Compile Include="Bank.cs" />
+    <Compile Include="CheckinAccount.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Class2.cs" />
     <Compile Include="Class3.cs" />
     <Compile Include="Class4.cs" />
     <Compile Include="Class5.cs" />
     <Compile Include="DayTime.cs" />
-    <Compile Include="ExceptionType.cs" />
     <Compile Include="Interface1.cs" />
     <Compile Include="ITransaction.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="SavingAccount.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="TransactionEventArgs.cs" />
     <Compile Include="LoginEventArgs.cs" />
@@ -72,6 +75,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="VisaAccount.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -14,7 +14,7 @@ namespace Assignment_04_Accounts_Group_1
         {
             { Account_Type.Checking, "CH" },
             { Account_Type.Saving, "SA" },
-             { Account_Type.Visa, "VI" }
+            { Account_Type.Visa, "VI" }
         };
 
         public static DayTime Time
