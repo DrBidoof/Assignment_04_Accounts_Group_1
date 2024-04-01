@@ -11,7 +11,7 @@ namespace Assignment_04_Accounts_Group_1
         public string PersonName { get; set; }
         public bool Success { get; set; }
 
-        public LoginEventArgs(string personName, bool success)
+        public LoginEventArgs(string personName, bool success) : base()
         {
             PersonName = personName;
             Success = success;
