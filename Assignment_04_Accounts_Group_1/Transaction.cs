@@ -18,7 +18,7 @@ namespace Assignment_04_Accounts_Group_1
             AccountNumber = accountNumber;
             Amount = amount;
             Originator = person;
-            Time = Utils.Now; 
+            Time = Utils.Time;
         }
 
         public override string ToString()
@@ -27,5 +27,6 @@ namespace Assignment_04_Accounts_Group_1
             return $"{transactionType}: Account Number: {AccountNumber}, Person: {Originator.Name}, Amount: {Math.Abs(Amount)}, Time: {Time}";
         }
     }
+
 
 }

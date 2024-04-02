@@ -47,13 +47,13 @@ namespace Assignment_04_Accounts_Group_1
         }
         public void Withdraw(double amount, Person person)
         {
-            
+
             throw new NotSupportedException("Visa accounts do not support direct withdrawals.");
         }
 
         public void Deposit(double amount, Person person)
         {
-            
+
             DoPayment(amount, person);
         }
 

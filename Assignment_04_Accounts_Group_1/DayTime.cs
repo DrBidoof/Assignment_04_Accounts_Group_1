@@ -19,18 +19,19 @@ namespace Assignment_04_Accounts_Group_1
         }
         public override string ToString()
         {
-            long totalMinutes = minutes;
-            long years = totalMinutes / (518400 * 60);
-            totalMinutes %= 518400 * 60;
-            long months = totalMinutes / (43200 * 60);
-            totalMinutes %= 43200 * 60;
-            long days = totalMinutes / (1440 * 60);
-            totalMinutes %= 1440 * 60;
-            long hours = totalMinutes / 3600;
-            totalMinutes %= 3600;
-            long remainingMinutes = totalMinutes / 60;
+            long remainingMinutes = minutes;
+            long years = remainingMinutes / (12L * 30L * 24L * 60L);
+            remainingMinutes %= (12L * 30L * 24L * 60L);
 
-            return $"{years:D4}-{months + 1:D2}-{days + 1:D2} {hours:D2}:{remainingMinutes:D2}";
+            long months = remainingMinutes / (30L * 24L * 60L);
+            remainingMinutes %= (30L * 24L * 60L);
+
+            long days = remainingMinutes / (24L * 60L);
+            remainingMinutes %= (24L * 60L);
+
+            long hours = remainingMinutes / 60L;
+            remainingMinutes %= 60L;
+            return $"{years:0000}-{months:00}-{days:00} {hours:00}:{remainingMinutes:00}";
         }
     }
 }

@@ -13,7 +13,8 @@ namespace Assignment_04_Accounts_Group_1
 
         public static void LoginHandler(object sender, EventArgs args)
         {
-            if (args is LoginEventArgs loginArgs)
+            LoginEventArgs loginArgs = args as LoginEventArgs;
+            if (loginArgs != null)
             {
                 string logMessage = $"{loginArgs.PersonName} - Success: {loginArgs.Success} - Time: {Utils.Now}";
                 loginEvents.Add(logMessage);
@@ -22,10 +23,11 @@ namespace Assignment_04_Accounts_Group_1
 
         public static void TransactionHandler(object sender, EventArgs args)
         {
-            if (args is TransactionEventArgs transactionArgs)
+            TransactionEventArgs transactionEventArgs = args as TransactionEventArgs;
+            if (transactionEventArgs != null)
             {
-                string operation = transactionArgs.Amount >= 0 ? "Deposit" : "Withdraw";
-                string logMessage = $"{transactionArgs.PersonName} - Amount: {Math.Abs(transactionArgs.Amount)} - Operation: {operation} - Success: {transactionArgs.Success} - Time: {Utils.Now}";
+                string operation = transactionEventArgs.Amount >= 0 ? "Deposit" : "Withdraw";
+                string logMessage = $"{transactionEventArgs.PersonName} - Amount: {Math.Abs(transactionEventArgs.Amount)} - Operation: {operation} - Success: {transactionEventArgs.Success} - Time: {Utils.Now}";
                 transactionEvents.Add(logMessage);
             }
         }
