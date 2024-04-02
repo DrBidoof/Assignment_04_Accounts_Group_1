@@ -8,31 +8,25 @@ namespace Assignment_04_Accounts_Group_1
 {
     public static class Utils
     {
-        private static DayTime _time;
-        private static Random random;
+        private static DayTime _time = new DayTime(1_048_000_000);
+
+        private static Random random = new Random();
         public static readonly Dictionary<Account_Type, string> ACCOUNT_TYPE = new Dictionary<Account_Type, string>()
         {
-            { Account_Type.Checking, "CH" },
-            { Account_Type.Saving, "SA" },
-            { Account_Type.Visa, "VI" }
+            { Account_Type.Checking, "CK" },
+            { Account_Type.Saving, "SV" },
+            { Account_Type.Visa, "VS" }
         };
 
         public static DayTime Time
         {
-            get
-            {
-                int randomIncrement = random.Next(1, 11); 
-                _time += randomIncrement;
-                return _time;
-            }
+            get => _time += random.Next(1000);
         }
 
         public static DayTime Now
         {
-            get
-            {
-                return _time;
-            }
+            get => _time += 0;
         }
+
     }
 }

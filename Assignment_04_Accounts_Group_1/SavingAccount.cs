@@ -8,49 +8,53 @@ namespace Assignment_04_Accounts_Group_1
 {
     public class SavingAccount : Account, ITransaction
     {
-        private static readonly double COST_PER_TRANSACTION = 0.5;
-        private static readonly double INTEREST_RATE = 0.015;
-        private bool hasOverdraft = false;
-        public SavingAccount(double balance = 0) : base("SV-", balance)
+
+        private const double COST_PER_TRANSACTION = 0.5;
+        private const double INTEREST_RATE = 0.015;
+        private readonly bool hasOverdraft;
+        public SavingAccount(double balance = 0, bool hasOverdraft = false) : base("SV-", balance)
         {
-            
+            this.hasOverdraft = hasOverdraft;
         }
+
         public new void Deposit(double amount, Person person)
         {
-            base.Deposit(amount - COST_PER_TRANSACTION, person);
+            base.Deposit(amount, person);
+            OnTransactionOccur(this, new TransactionEventArgs(person.Name, amount, true));
         }
+
         public void Withdraw(double amount, Person person)
         {
-            // Check whether the person is associated with this account
             if (!IsUser(person.Name))
             {
-                base.OnTransactionOccur(this, new TransactionEventArgs(person.Name, amount, false));
-                throw new AccountException(ExceptionType.NAME_NOT_ASSOCIATED_WITH_ACCOUNT);
+                OnTransactionOccur(this, new TransactionEventArgs(person.Name, amount, false));
+                throw new AccountException(ExceptionType.USER_DOES_NOT_EXIST);
             }
-            // Check whether the person is logged in
-            if (person == null)
+
+            if (!person.IsAuthenticated)
             {
-                base.OnTransactionOccur(this, new TransactionEventArgs(person.Name, amount, false));
+                OnTransactionOccur(this, new TransactionEventArgs(person.Name, amount, false));
                 throw new AccountException(ExceptionType.USER_NOT_LOGGED_IN);
             }
 
-            double totalAmount = amount + COST_PER_TRANSACTION;
+            if (amount > base.Balance && !hasOverdraft)
 
-            // Check whether the balance is sufficient or overdraft is enabled
-            if (Balance - totalAmount < 0 && !hasOverdraft)
             {
                 OnTransactionOccur(this, new TransactionEventArgs(person.Name, amount, false));
                 throw new AccountException(ExceptionType.NO_OVERDRAFT);
             }
+
             base.Deposit(-amount, person);
+            OnTransactionOccur(this, new TransactionEventArgs(person.Name, amount, true));
         }
-        public override void PrepareMonthlyReport()
+
+        public override void PrepareMonthlyStatement()
         {
-            double serviceCharge = Transactions.Count * COST_PER_TRANSACTION;
+            double serviceCharge = COST_PER_TRANSACTION * transactions.Count;
             double interest = LowestBalance * INTEREST_RATE / 12;
             Balance += interest - serviceCharge;
-            Transactions.Clear();
-            Console.WriteLine("Line 56 - Saving Account - Monthly report");
+            transactions.Clear();
+
         }
     }
 }

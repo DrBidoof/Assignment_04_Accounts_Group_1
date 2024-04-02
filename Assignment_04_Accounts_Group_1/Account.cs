@@ -8,12 +8,12 @@ namespace Assignment_04_Accounts_Group_1
 {
     public abstract class Account
     {
-        private static int LAST_NUMBER = 100000;
+        private static int LAST_NUMBER = 100_000;
 
         private readonly List<Person> users = new List<Person>();
-        protected readonly List<Transaction> transactions = new List<Transaction>();
+        public readonly List<Transaction> transactions = new List<Transaction>();
 
-        public event EventHandler<EventArgs> OnTransaction;
+        public virtual event EventHandler<EventArgs> OnTransaction;
 
         public string Number { get; }
         public double Balance { get; protected set; }
@@ -21,9 +21,12 @@ namespace Assignment_04_Accounts_Group_1
 
         public Account(string type, double balance)
         {
-            Number = $"{type}-{++LAST_NUMBER}";
+            Number = type + LAST_NUMBER;
+            LAST_NUMBER++;
             Balance = balance;
             LowestBalance = balance;
+            transactions = new List<Transaction>();
+            users = new List<Person>();
         }
 
         public void Deposit(double amount, Person person)
@@ -32,7 +35,7 @@ namespace Assignment_04_Accounts_Group_1
             LowestBalance = Math.Min(Balance, LowestBalance);
             Transaction transaction = new Transaction(Number, amount, person);
             transactions.Add(transaction);
-            OnTransactionOccur(this, EventArgs.Empty);
+
         }
 
         public void AddUser(Person person)

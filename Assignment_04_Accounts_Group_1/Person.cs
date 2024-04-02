@@ -9,21 +9,18 @@ namespace Assignment_04_Accounts_Group_1
     public class Person
     {
         private string password;
-        private bool isAuthenticated;
-
-        public string Password { get => password; set => password = value; }
-        public string Sin { get; set; }
-        public string Name { get; set; }
-
         public event EventHandler<LoginEventArgs> Onlogin;
 
-        public bool IsAuthenticated { get => isAuthenticated; private set => isAuthenticated = value; }
+        public string Sin { get; set; }
+        public string Name { get; set; }
+        public bool IsAuthenticated { get; private set; }
+
 
         public Person(string name, string sin)
         {
             Name = name;
             Sin = sin;
-            password = Sin.Substring(0, 4);
+            password = Sin.Substring(0, 3);
         }
 
         public void Login(string passwordS)
@@ -31,8 +28,9 @@ namespace Assignment_04_Accounts_Group_1
             if (passwordS != password)
             {
                 IsAuthenticated = false;
-                Onlogin?.Invoke(this, new LoginEventArgs(this.Name,false)); 
-                throw new Exception((ExceptionType.PASSWORD_INCORRECT).ToString());
+                Onlogin?.Invoke(this, new LoginEventArgs(this.Name, false));
+                AccountException passwordIncorrect = new AccountException(ExceptionType.PASSWORD_INCORRECT);
+                throw (passwordIncorrect);
             }
             else
             {
@@ -40,7 +38,6 @@ namespace Assignment_04_Accounts_Group_1
                 Onlogin?.Invoke(this, new LoginEventArgs(this.Name, true));
             }
         }
-
         public void Logout()
         {
             IsAuthenticated = false;
@@ -50,5 +47,5 @@ namespace Assignment_04_Accounts_Group_1
         {
             return $"{Name} - Authenticated: {IsAuthenticated}";
         }
-    }    
+    }
 }
