@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +8,7 @@ namespace Assignment_04_Accounts_Group_1
 {
     public class SavingAccount : Account, ITransaction
     {
+
         private const double COST_PER_TRANSACTION = 0.5;
         private const double INTEREST_RATE = 0.015;
         private readonly bool hasOverdraft;
@@ -37,6 +38,7 @@ namespace Assignment_04_Accounts_Group_1
             }
 
             if (amount > base.Balance && !hasOverdraft)
+
             {
                 OnTransactionOccur(this, new TransactionEventArgs(person.Name, amount, false));
                 throw new AccountException(ExceptionType.NO_OVERDRAFT);
@@ -52,6 +54,7 @@ namespace Assignment_04_Accounts_Group_1
             double interest = LowestBalance * INTEREST_RATE / 12;
             Balance += interest - serviceCharge;
             transactions.Clear();
+
         }
     }
 }
