@@ -31,17 +31,6 @@ namespace Assignment_04_Accounts_Group_1
                 transactionEvents.Add(logMessage);
             }
         }
-
-        public static void ShowLoginEvents()
-        {
-            Console.WriteLine($"Current Time: {Utils.Now}");
-            Console.WriteLine("Login Events:");
-            for (int i = 0; i < loginEvents.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {loginEvents[i]}");
-            }
-        }
-
         public static void ShowTransactionEvents()
         {
             Console.WriteLine($"Current Time: {Utils.Now}");
@@ -50,6 +39,28 @@ namespace Assignment_04_Accounts_Group_1
             {
                 Console.WriteLine($"{i + 1}. {transactionEvents[i]}");
             }
+        }
+
+        public static string GetLoginEvents() // currently working on 
+        {
+            string logingEvents = $"Current Time: {Utils.Now}";
+            logingEvents += "\nTransaction Events:";
+            for (int i = 0; i < loginEvents.Count; i++)
+            {                
+                logingEvents += $"\n{i + 1}. {loginEvents[i]}";
+            }
+            return logingEvents;
+        }
+
+        public static string GetTransactionEvents()
+        {
+            string logingEvents = $"Current Time: {Utils.Now}";
+            logingEvents += "\nTransaction Events:";
+            for (int i = 0; i < transactionEvents.Count; i++)
+            {
+                logingEvents += $"\n{i + 1}. {transactionEvents[i]}";
+            }
+            return logingEvents;
         }
     }
 }

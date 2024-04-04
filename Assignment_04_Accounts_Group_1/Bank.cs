@@ -127,26 +127,6 @@ namespace Assignment_04_Accounts_Group_1
             }
         }
 
-        public static void PrintAccounts()
-        {
-
-            Console.WriteLine("Accounts:");
-            foreach (Account account in ACCOUNTS.Values)
-            {
-                Console.WriteLine(account.ToString());
-            }
-        }
-
-        public static void PrintPersons()
-        {
-
-            Console.WriteLine("Persons:");
-            foreach (Person person in USERS.Values)
-            {
-                Console.WriteLine(person.ToString());
-            }
-        }
-
         public static List<Transaction> GetAllTransactions()
         {
             List<Transaction> allTransactions = new List<Transaction>();
@@ -156,6 +136,18 @@ namespace Assignment_04_Accounts_Group_1
                 allTransactions.AddRange(account.transactions);
             }
             return allTransactions;
+        }
+
+        public static string[] GetAccounts()
+        {
+            string[] bankAccounts = ACCOUNTS.Values.Select(value => value.ToString()).ToArray();
+            return bankAccounts;
+        }
+
+        public static string[] GetPersons()
+        {
+            string[] bankPersons = USERS.Values.Select(value => value.ToString()).ToArray();
+            return bankPersons;
         }
     }
 }

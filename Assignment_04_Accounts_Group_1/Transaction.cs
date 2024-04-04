@@ -12,6 +12,7 @@ namespace Assignment_04_Accounts_Group_1
         public double Amount { get; }
         public Person Originator { get; }
         public DayTime Time { get; }
+        public string TransactionType { get; }
 
         public Transaction(string accountNumber, double amount, Person person)
         {
@@ -19,12 +20,12 @@ namespace Assignment_04_Accounts_Group_1
             Amount = amount;
             Originator = person;
             Time = Utils.Time;
+            TransactionType = Amount >= 0 ? "Deposit" : "Withdraw";
         }
 
         public override string ToString()
         {
-            string transactionType = Amount >= 0 ? "Deposit" : "Withdraw";
-            return $"{transactionType}: Account Number: {AccountNumber}, Person: {Originator.Name}, Amount: {Math.Abs(Amount)}, Time: {Time}";
+            return $"{TransactionType}: Account Number: {AccountNumber}, Person: {Originator.Name}, Amount: {Math.Abs(Amount)}, Time: {Time}";
         }
     }
 
