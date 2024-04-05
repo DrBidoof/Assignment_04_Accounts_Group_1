@@ -15,10 +15,14 @@ namespace Assignment_04_Accounts_Group_1
 {
     public partial class Form1 : Form
     {
+        private Person selectedPerson;
+        private Account selectedAccount;
+        //private SelectAcct<T> selectedAccountdos;
         public Form1()
         {
                         
-        InitializeComponent();                     
+            InitializeComponent();
+            
             Person p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10;
             p0 = Bank.GetPerson("Narendra");
             p1 = Bank.GetPerson("Ilia");
@@ -167,6 +171,7 @@ namespace Assignment_04_Accounts_Group_1
             try
             {
                 Person person = Bank.GetPerson(userNameTxt.Text);
+                selectedPerson = person;
                 person.Login(passwordtxb.Text);
                 getPersonlb.Text = person.ToString();
             }
@@ -216,38 +221,38 @@ namespace Assignment_04_Accounts_Group_1
             try
             {
                 switch (selectedAccountType)
-                {
-                    case AccountType.None:
-                    case AccountType.Visa:
-                        
-                        HandleAccount<VisaAccount>("Do Payment", "Do Purchase", visarbt.Text);
-                        break;
-                    case AccountType.Checking:
-                        
-                        HandleAccount<CheckingAccount>("Deposit", "Withdraw", checkingrbt.Text);
-                        break;
-                    case AccountType.Savings:
-                        
-                        HandleAccount<SavingAccount>("Deposit", "Withdraw", savingsrbt.Text);
-                        break;
-                    default:
-                        MessageBox.Show("Invalid account type selection.");
-                        break;
-                }
+                            {
+                                case AccountType.Visa:
+                                    selectedAccount = HandleAccount<VisaAccount>("Do Payment", "Do Purchase", visarbt.Text);
+                                    break;
+                                case AccountType.Checking:
+                                    selectedAccount = HandleAccount<CheckingAccount>("Deposit", "Withdraw", checkingrbt.Text);
+                                    break;
+                                case AccountType.Savings:
+                                    selectedAccount = HandleAccount<SavingAccount>("Deposit", "Withdraw", savingsrbt.Text);
+                                    break;
+                                default:
+                                    MessageBox.Show("Invalid account type selection.");
+                                    break;
+                            }
+                balanceResultlbl.Text = Convert.ToString(selectedAccount.Balance);
             }
             catch (AccountException ex)
             {
                 MessageBox.Show($"{selectedAccountType} Account {ex.Message}");
                 displayAccountlbl.Text = "";
             }
+            
         }
 
-        private void HandleAccount<T>(string addButtonLabel, string minusButtonLabel, string accountTypeLabel) where T : Account
+        private T HandleAccount<T>(string addButtonLabel, string minusButtonLabel, string accountTypeLabel) where T : Account
         {
+            // Get the account based on user input
             T account = Bank.GetAccount(accountTypetxtb.Text) as T;
             displayAccountlbl.Text = account.ToString();
             addBtn.Text = addButtonLabel;
             minusBtn.Text = minusButtonLabel;
+            return account;
         }
 
         private AccountType GetSelectedAccountType()
@@ -272,6 +277,76 @@ namespace Assignment_04_Accounts_Group_1
             Savings,
             None
         }
+        private void HandleTransaction(double amount)
+        {
+            // Check if selectedAccount is not null and selectedPerson is set
+            if (selectedAccount != null && selectedPerson != null)
+            {
+                // Check the type of selectedAccount and call the appropriate method
+                if (selectedAccount is VisaAccount)
+                {
+                    // Call DoPayment method for VisaAccount
+                    if (amount < 0)
+                        (selectedAccount as VisaAccount).DoPurchase(-amount, selectedPerson);
+                    else
+                        (selectedAccount as VisaAccount).DoPayment(amount, selectedPerson);
+                }
+                else if (selectedAccount is CheckingAccount)
+                {
+                    // Call Deposit or Withdraw method for CheckingAccount based on amount sign
+                    if (amount < 0)
+                        (selectedAccount as CheckingAccount).Withdraw(-amount, selectedPerson);
+                    else
+                        (selectedAccount as CheckingAccount).Deposit(amount, selectedPerson);
+                }
+                else if (selectedAccount is SavingAccount)
+                {
+                    // Call Deposit or Withdraw method for SavingAccount based on amount sign
+                    if (amount < 0)
+                        (selectedAccount as SavingAccount).Withdraw(-amount, selectedPerson);
+                    else
+                        (selectedAccount as SavingAccount).Deposit(amount, selectedPerson);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid account type.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a person and an account first.");
+            }
+        }
+        private void addBtn_Click(object sender, EventArgs e)
+        {
+            //a.DoPayment(1500, p0);
+            //a.DoPurchase(200, p1);
+            double amount;
+            if (double.TryParse(addTxtb.Text, out amount))
+            {
+                HandleTransaction(amount);
+                
+            }
+            else
+            {
+                MessageBox.Show("Invalid amount.");
+            }
+            balanceResultlbl.Text = Convert.ToString(selectedAccount.Balance);
+        }
 
+        private void minusBtn_Click(object sender, EventArgs e)
+        {
+            double amount;
+            if (double.TryParse(minusTxtb.Text, out amount))
+            {
+                HandleTransaction(-amount); // Pass negative amount for subtraction
+                
+            }
+            else
+            {
+                MessageBox.Show("Invalid amount.");
+            }
+            balanceResultlbl.Text = Convert.ToString(selectedAccount.Balance);
+        }
     }
 }

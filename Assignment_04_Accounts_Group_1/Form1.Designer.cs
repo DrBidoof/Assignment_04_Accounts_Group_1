@@ -57,6 +57,8 @@
             this.savingsrbt = new System.Windows.Forms.RadioButton();
             this.checkingrbt = new System.Windows.Forms.RadioButton();
             this.visarbt = new System.Windows.Forms.RadioButton();
+            this.balancelbl = new System.Windows.Forms.Label();
+            this.balanceResultlbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAllTransactions)).BeginInit();
             this.accountsgrpb.SuspendLayout();
             this.SuspendLayout();
@@ -203,6 +205,8 @@
             // 
             // accountsgrpb
             // 
+            this.accountsgrpb.Controls.Add(this.balanceResultlbl);
+            this.accountsgrpb.Controls.Add(this.balancelbl);
             this.accountsgrpb.Controls.Add(this.displayAccountlbl);
             this.accountsgrpb.Controls.Add(this.minusTxtb);
             this.accountsgrpb.Controls.Add(this.addTxtb);
@@ -252,6 +256,7 @@
             this.minusBtn.TabIndex = 7;
             this.minusBtn.Text = "Minus";
             this.minusBtn.UseVisualStyleBackColor = true;
+            this.minusBtn.Click += new System.EventHandler(this.minusBtn_Click);
             // 
             // addBtn
             // 
@@ -260,6 +265,7 @@
             this.addBtn.Size = new System.Drawing.Size(75, 23);
             this.addBtn.TabIndex = 24;
             this.addBtn.Text = "Add";
+            this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
             // 
             // getAccountbtn
             // 
@@ -319,6 +325,23 @@
             this.visarbt.TabStop = true;
             this.visarbt.Text = "Visa";
             this.visarbt.UseVisualStyleBackColor = true;
+            // 
+            // balancelbl
+            // 
+            this.balancelbl.AutoSize = true;
+            this.balancelbl.Location = new System.Drawing.Point(743, 86);
+            this.balancelbl.Name = "balancelbl";
+            this.balancelbl.Size = new System.Drawing.Size(46, 13);
+            this.balancelbl.TabIndex = 25;
+            this.balancelbl.Text = "Balance";
+            // 
+            // balanceResultlbl
+            // 
+            this.balanceResultlbl.AutoSize = true;
+            this.balanceResultlbl.Location = new System.Drawing.Point(795, 86);
+            this.balanceResultlbl.Name = "balanceResultlbl";
+            this.balanceResultlbl.Size = new System.Drawing.Size(0, 13);
+            this.balanceResultlbl.TabIndex = 26;
             // 
             // Form1
             // 
@@ -382,6 +405,8 @@
         private System.Windows.Forms.TextBox addTxtb;
         private System.Windows.Forms.TextBox minusTxtb;
         private System.Windows.Forms.Label displayAccountlbl;
+        private System.Windows.Forms.Label balanceResultlbl;
+        private System.Windows.Forms.Label balancelbl;
     }
 }
 
