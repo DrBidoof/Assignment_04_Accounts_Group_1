@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,7 +17,8 @@ namespace Assignment_04_Accounts_Group_1
     {
         public Form1()
         {
-            InitializeComponent();                     
+                        
+        InitializeComponent();                     
             Person p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10;
             p0 = Bank.GetPerson("Narendra");
             p1 = Bank.GetPerson("Ilia");
@@ -127,8 +130,6 @@ namespace Assignment_04_Accounts_Group_1
             }
             catch (AccountException e) { Console.WriteLine(e.Message); }
 
-            
-
             //foreach (var keyValuePair in Bank.ACCOUNTS)
             //{
             //    Account account = keyValuePair.Value;
@@ -140,48 +141,14 @@ namespace Assignment_04_Accounts_Group_1
             //    Console.WriteLine(account);
             //}
 
-
-            dataGridViewAccounts.DataSource = CreateDataTable(Bank.GetAccounts(), "All Accounts");
-            dataGridViewPersons.DataSource = CreateDataTable(Bank.GetPersons(), "All Persons");
+            
+            displayAccountlbl.Text = "";
             List<Transaction> transactions = Bank.GetAllTransactions();            
             dataGridAllTransactions.DataSource = transactions;
-            
+            GetAccountsNamesIntoListBoxView(Bank.GetAccountNames());
+            GetPersonsNamesIntoListBoxView(Bank.GetPersons());
+            GetAccountsIntoListBoxView(Bank.GetAccounts());
         }
-
-        private DataTable CreateDataTable(string[] bankAllAccounts, string columTittle)
-        {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add(columTittle);
-            foreach (string bankAccount in bankAllAccounts)
-            {
-                dataTable.Rows.Add(bankAccount);
-            }
-            return dataTable;
-        }
-
-        //private DataTable CreateTransactionDataTable(List<Transaction> allTransactions)
-        //{
-        //    DataTable dataTable = new DataTable();
-        //    DataColumn colAccount = new DataColumn("Account", typeof(string));
-        //    DataColumn colAmount = new DataColumn("Amount", typeof(string));
-        //    DataColumn colType = new DataColumn("Type", typeof(string));
-        //    DataColumn colOriginator = new DataColumn("Originator", typeof(string));
-        //    DataColumn colDateTime = new DataColumn("Date and Time", typeof(DateTime));
-
-        //    dataTable.Columns.Add(colAccount);
-        //    dataTable.Columns.Add(colAmount);
-        //    dataTable.Columns.Add(colType);
-        //    dataTable.Columns.Add(colOriginator);
-        //    dataTable.Columns.Add(colDateTime);
-
-        //    //dataTable.Columns.Add(columTittle);
-        //    foreach (Transaction transaction  in allTransactions)
-        //    {
-        //        DataRow row = dataTable.NewRow();
-        //        row[colAccount] = transaction.AccountNumber.ToString();
-        //    }
-        //    return dataTable;
-        //}
 
         private void loginEventsbtn_Click(object sender, EventArgs e)
         {
@@ -207,7 +174,104 @@ namespace Assignment_04_Accounts_Group_1
             {
                 MessageBox.Show($"{userNameTxt.Text} {ex.Message}");
                 getPersonlb.Text = "";
-            }            
+            }
+
+            GetPersonsNamesIntoListBoxView(Bank.GetPersons());
         }
+
+        private void GetAccountsNamesIntoListBoxView(string[] accountsStrings)
+        {
+            listBoxAccounts.Items.Clear();
+            listBoxAccounts.Items.Add("Account Names");
+            foreach (string accountString in accountsStrings)
+            {
+                listBoxAccounts.Items.Add(accountString);
+            }
+        }
+
+        private void GetPersonsNamesIntoListBoxView(string[] persons)
+        {
+            
+            viewPersonsltb.Items.Clear();
+            viewPersonsltb.Items.Add("Persons Status");
+            foreach (string person in persons)
+            {
+                viewPersonsltb.Items.Add(person);
+            }
+        }
+        private void GetAccountsIntoListBoxView(string[] persons)
+        {
+
+            viewAccountsltb.Items.Clear();
+            viewAccountsltb.Items.Add("Accounts");
+            foreach (string person in persons)
+            {
+                viewAccountsltb.Items.Add(person);
+            }
+        }
+        private void getAccountbtn_Click(object sender, EventArgs e)
+        {
+            AccountType selectedAccountType = GetSelectedAccountType();
+
+            try
+            {
+                switch (selectedAccountType)
+                {
+                    case AccountType.None:
+                    case AccountType.Visa:
+                        
+                        HandleAccount<VisaAccount>("Do Payment", "Do Purchase", visarbt.Text);
+                        break;
+                    case AccountType.Checking:
+                        
+                        HandleAccount<CheckingAccount>("Deposit", "Withdraw", checkingrbt.Text);
+                        break;
+                    case AccountType.Savings:
+                        
+                        HandleAccount<SavingAccount>("Deposit", "Withdraw", savingsrbt.Text);
+                        break;
+                    default:
+                        MessageBox.Show("Invalid account type selection.");
+                        break;
+                }
+            }
+            catch (AccountException ex)
+            {
+                MessageBox.Show($"{selectedAccountType} Account {ex.Message}");
+                displayAccountlbl.Text = "";
+            }
+        }
+
+        private void HandleAccount<T>(string addButtonLabel, string minusButtonLabel, string accountTypeLabel) where T : Account
+        {
+            T account = Bank.GetAccount(accountTypetxtb.Text) as T;
+            displayAccountlbl.Text = account.ToString();
+            addBtn.Text = addButtonLabel;
+            minusBtn.Text = minusButtonLabel;
+        }
+
+        private AccountType GetSelectedAccountType()
+        {
+            if (visarbt.Checked)
+                return AccountType.Visa;
+            else if (checkingrbt.Checked)
+                return AccountType.Checking;
+            else if (savingsrbt.Checked)
+                return AccountType.Savings;
+            else
+            {
+                MessageBox.Show("Please select an account type.");
+                return AccountType.None;               
+            }
+        }
+
+        private enum AccountType
+        {
+            Visa,
+            Checking,
+            Savings,
+            None
+        }
+
     }
 }

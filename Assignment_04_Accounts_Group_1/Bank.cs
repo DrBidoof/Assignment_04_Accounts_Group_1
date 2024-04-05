@@ -73,10 +73,10 @@ namespace Assignment_04_Accounts_Group_1
             number = "SV-100007";
             AddUserToAccount(number, "Patrick");
             AddUserToAccount(number, "Hao");
-
+            ACCOUNTS.Values.ToString();
 
         }
-
+        
         public static void AddPerson(string name, string sin)
         {
             Person person = new Person(name, sin);
@@ -136,6 +136,14 @@ namespace Assignment_04_Accounts_Group_1
                 allTransactions.AddRange(account.transactions);
             }
             return allTransactions;
+        }
+
+
+        public static string[] GetAccountNames()
+        {
+            string[] allAccountsNames = new string[ACCOUNTS.Count];
+            allAccountsNames = ACCOUNTS.Keys.ToArray();
+            return allAccountsNames;
         }
 
         public static string[] GetAccounts()

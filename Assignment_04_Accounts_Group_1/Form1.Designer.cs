@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridViewAccounts = new System.Windows.Forms.DataGridView();
-            this.dataGridViewPersons = new System.Windows.Forms.DataGridView();
             this.loginEventsbtn = new System.Windows.Forms.Button();
             this.transactionEventslbl = new System.Windows.Forms.Button();
             this.dataGridAllTransactions = new System.Windows.Forms.DataGridView();
@@ -42,26 +40,26 @@
             this.passwordtxb = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAccounts)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPersons)).BeginInit();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.listBoxAccounts = new System.Windows.Forms.ListBox();
+            this.viewAccountsltb = new System.Windows.Forms.ListBox();
+            this.viewPersonsltb = new System.Windows.Forms.ListBox();
+            this.accountsgrpb = new System.Windows.Forms.GroupBox();
+            this.displayAccountlbl = new System.Windows.Forms.Label();
+            this.minusTxtb = new System.Windows.Forms.TextBox();
+            this.addTxtb = new System.Windows.Forms.TextBox();
+            this.minusBtn = new System.Windows.Forms.Button();
+            this.addBtn = new System.Windows.Forms.Button();
+            this.getAccountbtn = new System.Windows.Forms.Button();
+            this.accountTypetxtb = new System.Windows.Forms.TextBox();
+            this.accountNamelbl = new System.Windows.Forms.Label();
+            this.savingsrbt = new System.Windows.Forms.RadioButton();
+            this.checkingrbt = new System.Windows.Forms.RadioButton();
+            this.visarbt = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAllTransactions)).BeginInit();
+            this.accountsgrpb.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // dataGridViewAccounts
-            // 
-            this.dataGridViewAccounts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAccounts.Location = new System.Drawing.Point(1134, 496);
-            this.dataGridViewAccounts.Name = "dataGridViewAccounts";
-            this.dataGridViewAccounts.Size = new System.Drawing.Size(611, 438);
-            this.dataGridViewAccounts.TabIndex = 1;
-            // 
-            // dataGridViewPersons
-            // 
-            this.dataGridViewPersons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPersons.Location = new System.Drawing.Point(1134, 12);
-            this.dataGridViewPersons.Name = "dataGridViewPersons";
-            this.dataGridViewPersons.Size = new System.Drawing.Size(611, 435);
-            this.dataGridViewPersons.TabIndex = 2;
             // 
             // loginEventsbtn
             // 
@@ -88,7 +86,7 @@
             this.dataGridAllTransactions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridAllTransactions.Location = new System.Drawing.Point(-4, 0);
             this.dataGridAllTransactions.Name = "dataGridAllTransactions";
-            this.dataGridAllTransactions.Size = new System.Drawing.Size(569, 362);
+            this.dataGridAllTransactions.Size = new System.Drawing.Size(400, 362);
             this.dataGridAllTransactions.TabIndex = 5;
             // 
             // getPersonlb
@@ -146,7 +144,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(277, 401);
+            this.label1.Location = new System.Drawing.Point(364, 401);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 13;
@@ -155,17 +153,184 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(277, 434);
+            this.label2.Location = new System.Drawing.Point(364, 434);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(25, 13);
             this.label2.TabIndex = 14;
             this.label2.Text = "122";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(287, 401);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 13);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Test Account";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(287, 434);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(77, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Test Password";
+            // 
+            // listBoxAccounts
+            // 
+            this.listBoxAccounts.FormattingEnabled = true;
+            this.listBoxAccounts.Location = new System.Drawing.Point(-4, 571);
+            this.listBoxAccounts.Name = "listBoxAccounts";
+            this.listBoxAccounts.Size = new System.Drawing.Size(158, 225);
+            this.listBoxAccounts.TabIndex = 18;
+            // 
+            // viewAccountsltb
+            // 
+            this.viewAccountsltb.FormattingEnabled = true;
+            this.viewAccountsltb.Location = new System.Drawing.Point(402, 0);
+            this.viewAccountsltb.Name = "viewAccountsltb";
+            this.viewAccountsltb.Size = new System.Drawing.Size(1506, 160);
+            this.viewAccountsltb.TabIndex = 19;
+            // 
+            // viewPersonsltb
+            // 
+            this.viewPersonsltb.FormattingEnabled = true;
+            this.viewPersonsltb.Location = new System.Drawing.Point(160, 571);
+            this.viewPersonsltb.Name = "viewPersonsltb";
+            this.viewPersonsltb.Size = new System.Drawing.Size(229, 225);
+            this.viewPersonsltb.TabIndex = 20;
+            // 
+            // accountsgrpb
+            // 
+            this.accountsgrpb.Controls.Add(this.displayAccountlbl);
+            this.accountsgrpb.Controls.Add(this.minusTxtb);
+            this.accountsgrpb.Controls.Add(this.addTxtb);
+            this.accountsgrpb.Controls.Add(this.minusBtn);
+            this.accountsgrpb.Controls.Add(this.addBtn);
+            this.accountsgrpb.Controls.Add(this.getAccountbtn);
+            this.accountsgrpb.Controls.Add(this.accountTypetxtb);
+            this.accountsgrpb.Controls.Add(this.accountNamelbl);
+            this.accountsgrpb.Controls.Add(this.savingsrbt);
+            this.accountsgrpb.Controls.Add(this.checkingrbt);
+            this.accountsgrpb.Controls.Add(this.visarbt);
+            this.accountsgrpb.Location = new System.Drawing.Point(402, 166);
+            this.accountsgrpb.Name = "accountsgrpb";
+            this.accountsgrpb.Size = new System.Drawing.Size(1492, 196);
+            this.accountsgrpb.TabIndex = 21;
+            this.accountsgrpb.TabStop = false;
+            this.accountsgrpb.Text = "Account Type";
+            // 
+            // displayAccountlbl
+            // 
+            this.displayAccountlbl.AutoSize = true;
+            this.displayAccountlbl.Location = new System.Drawing.Point(430, 44);
+            this.displayAccountlbl.Name = "displayAccountlbl";
+            this.displayAccountlbl.Size = new System.Drawing.Size(35, 13);
+            this.displayAccountlbl.TabIndex = 22;
+            this.displayAccountlbl.Text = "label5";
+            // 
+            // minusTxtb
+            // 
+            this.minusTxtb.Location = new System.Drawing.Point(517, 117);
+            this.minusTxtb.Name = "minusTxtb";
+            this.minusTxtb.Size = new System.Drawing.Size(100, 20);
+            this.minusTxtb.TabIndex = 23;
+            // 
+            // addTxtb
+            // 
+            this.addTxtb.Location = new System.Drawing.Point(517, 79);
+            this.addTxtb.Name = "addTxtb";
+            this.addTxtb.Size = new System.Drawing.Size(100, 20);
+            this.addTxtb.TabIndex = 8;
+            // 
+            // minusBtn
+            // 
+            this.minusBtn.Location = new System.Drawing.Point(423, 115);
+            this.minusBtn.Name = "minusBtn";
+            this.minusBtn.Size = new System.Drawing.Size(88, 23);
+            this.minusBtn.TabIndex = 7;
+            this.minusBtn.Text = "Minus";
+            this.minusBtn.UseVisualStyleBackColor = true;
+            // 
+            // addBtn
+            // 
+            this.addBtn.Location = new System.Drawing.Point(423, 76);
+            this.addBtn.Name = "addBtn";
+            this.addBtn.Size = new System.Drawing.Size(75, 23);
+            this.addBtn.TabIndex = 24;
+            this.addBtn.Text = "Add";
+            // 
+            // getAccountbtn
+            // 
+            this.getAccountbtn.Location = new System.Drawing.Point(146, 77);
+            this.getAccountbtn.Name = "getAccountbtn";
+            this.getAccountbtn.Size = new System.Drawing.Size(183, 61);
+            this.getAccountbtn.TabIndex = 5;
+            this.getAccountbtn.Text = "Get Account";
+            this.getAccountbtn.UseVisualStyleBackColor = true;
+            this.getAccountbtn.Click += new System.EventHandler(this.getAccountbtn_Click);
+            // 
+            // accountTypetxtb
+            // 
+            this.accountTypetxtb.Location = new System.Drawing.Point(146, 44);
+            this.accountTypetxtb.Name = "accountTypetxtb";
+            this.accountTypetxtb.Size = new System.Drawing.Size(183, 20);
+            this.accountTypetxtb.TabIndex = 4;
+            // 
+            // accountNamelbl
+            // 
+            this.accountNamelbl.AutoSize = true;
+            this.accountNamelbl.Location = new System.Drawing.Point(198, 16);
+            this.accountNamelbl.Name = "accountNamelbl";
+            this.accountNamelbl.Size = new System.Drawing.Size(78, 13);
+            this.accountNamelbl.TabIndex = 3;
+            this.accountNamelbl.Text = "Account Name";
+            // 
+            // savingsrbt
+            // 
+            this.savingsrbt.AutoSize = true;
+            this.savingsrbt.Location = new System.Drawing.Point(16, 121);
+            this.savingsrbt.Name = "savingsrbt";
+            this.savingsrbt.Size = new System.Drawing.Size(63, 17);
+            this.savingsrbt.TabIndex = 2;
+            this.savingsrbt.TabStop = true;
+            this.savingsrbt.Text = "Savings";
+            this.savingsrbt.UseVisualStyleBackColor = true;
+            // 
+            // checkingrbt
+            // 
+            this.checkingrbt.AutoSize = true;
+            this.checkingrbt.Location = new System.Drawing.Point(16, 77);
+            this.checkingrbt.Name = "checkingrbt";
+            this.checkingrbt.Size = new System.Drawing.Size(70, 17);
+            this.checkingrbt.TabIndex = 1;
+            this.checkingrbt.TabStop = true;
+            this.checkingrbt.Text = "Checking";
+            this.checkingrbt.UseVisualStyleBackColor = true;
+            // 
+            // visarbt
+            // 
+            this.visarbt.AutoSize = true;
+            this.visarbt.Location = new System.Drawing.Point(16, 35);
+            this.visarbt.Name = "visarbt";
+            this.visarbt.Size = new System.Drawing.Size(45, 17);
+            this.visarbt.TabIndex = 0;
+            this.visarbt.TabStop = true;
+            this.visarbt.Text = "Visa";
+            this.visarbt.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1906, 1016);
+            this.Controls.Add(this.accountsgrpb);
+            this.Controls.Add(this.viewPersonsltb);
+            this.Controls.Add(this.viewAccountsltb);
+            this.Controls.Add(this.listBoxAccounts);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.passwordtxb);
@@ -177,21 +342,17 @@
             this.Controls.Add(this.dataGridAllTransactions);
             this.Controls.Add(this.transactionEventslbl);
             this.Controls.Add(this.loginEventsbtn);
-            this.Controls.Add(this.dataGridViewPersons);
-            this.Controls.Add(this.dataGridViewAccounts);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAccounts)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPersons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAllTransactions)).EndInit();
+            this.accountsgrpb.ResumeLayout(false);
+            this.accountsgrpb.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dataGridViewAccounts;
-        private System.Windows.Forms.DataGridView dataGridViewPersons;
         private System.Windows.Forms.Button loginEventsbtn;
         private System.Windows.Forms.Button transactionEventslbl;
         private System.Windows.Forms.DataGridView dataGridAllTransactions;
@@ -204,6 +365,23 @@
         private System.Windows.Forms.TextBox passwordtxb;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox listBoxAccounts;
+        private System.Windows.Forms.ListBox viewAccountsltb;
+        private System.Windows.Forms.ListBox viewPersonsltb;
+        private System.Windows.Forms.GroupBox accountsgrpb;
+        private System.Windows.Forms.RadioButton savingsrbt;
+        private System.Windows.Forms.RadioButton checkingrbt;
+        private System.Windows.Forms.RadioButton visarbt;
+        private System.Windows.Forms.Label accountNamelbl;
+        private System.Windows.Forms.TextBox accountTypetxtb;
+        private System.Windows.Forms.Button getAccountbtn;
+        private System.Windows.Forms.Button minusBtn;
+        private System.Windows.Forms.Button addBtn;
+        private System.Windows.Forms.TextBox addTxtb;
+        private System.Windows.Forms.TextBox minusTxtb;
+        private System.Windows.Forms.Label displayAccountlbl;
     }
 }
 
