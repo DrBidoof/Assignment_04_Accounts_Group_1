@@ -339,7 +339,16 @@ namespace Assignment_04_Accounts_Group_1
             double amount;
             if (double.TryParse(minusTxtb.Text, out amount))
             {
-                HandleTransaction(-amount); // Pass negative amount for subtraction
+                try
+                {
+                    HandleTransaction(-amount); // Pass negative amount for subtraction
+
+                }
+                catch (AccountException ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
+                
                 
             }
             else
